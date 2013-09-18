@@ -1,0 +1,216 @@
+/**
+ * 
+ * GK Grid front-end CSS code
+ *
+ **/
+
+/*
+
+Copyright 2013-2013 GavickPro (info@gavick.com)
+
+this program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License, version 2, as 
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+*/
+
+.gk-grid {
+	overflow: hidden;	
+	-webkit-transform: translate3d(0, 0, 0);
+	-moz-transform: translate3d(0, 0, 0);
+	-ms-transform: translate3d(0, 0, 0);
+	-o-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+}
+
+@-moz-document url-prefix() {
+	.gk-grid {
+		-webkit-transform: translate3d(0, 0, 0) scale(1.00001);
+		-moz-transform: translate3d(0, 0, 0) scale(1.00001);
+		-ms-transform: translate3d(0, 0, 0) scale(1.00001);
+		-o-transform: translate3d(0, 0, 0) scale(1.00001);
+		transform: translate3d(0, 0, 0) scale(1.00001);
+	}
+}
+
+.gk-grid-wrap {
+	background: url('loader.gif') no-repeat center center;
+	-webkit-perspective: 1200;
+	-moz-perspective: 1200;
+	-ms-perspective: 1200;
+	perspective: 1200;
+	position: relative;
+}
+
+.gk-grid-wrap > img {
+	display: block;
+	height: auto;
+	width: 100%;
+}
+
+.gk-grid-wrap > .gk-grid-element {
+	background: #fff;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	opacity: 0; filter: alpha(opacity=0);
+	overflow: hidden;
+	position: absolute;
+	-webkit-transition-property: all;
+	-moz-transition-property: all;
+	-ms-transition-property: all;
+	-o-transition-property: all;
+	transition-property: all;
+	-webkit-transition-timing-function: cubic-bezier(.31,.77,.46,.92) ;
+	-moz-transition-timing-function: cubic-bezier(.31,.77,.46,.92) ;
+	-ms-transition-timing-function: cubic-bezier(.31,.77,.46,.92) ;
+	-o-transition-timing-function: cubic-bezier(.31,.77,.46,.92) ;
+	transition-timing-function: cubic-bezier(.31,.77,.46,.92) ;
+	z-index: 1;
+}
+
+.gk-grid-wrap > .gk-grid-element.active {
+	opacity: 1; filter: alpha(opacity=100);
+}
+/* Animation types */
+.gk-grid[data-type="scale"] .gk-grid-element {
+	-webkit-transform: scale(0.75);
+	-moz-transform: scale(0.75);
+	-ms-transform: scale(0.75);
+	-o-transform: scale(0.75);
+	transform: scale(0.75);
+}
+.gk-grid[data-type="scale"] .gk-grid-element.active {
+	-webkit-transform: scale(1);
+	-moz-transform: scale(1);
+	-ms-transform: scale(1);
+	-o-transform: scale(1);
+	transform: scale(1);
+}
+
+.gk-grid[data-type="rotate"] .gk-grid-element {
+	margin-top: 10%;
+	-webkit-transform: rotateZ(25deg);
+	-moz-transform: rotateZ(25deg);
+	-ms-transform: rotateZ(25deg);
+	-o-transform: rotateZ(25deg);
+	transform: rotateZ(25deg);
+}
+.gk-grid[data-type="rotate"] .gk-grid-element.active {
+	margin-top: 0%;
+	-webkit-transform: rotateZ(0deg);
+	-moz-transform: rotateZ(0deg);
+	-ms-transform: rotateZ(0deg);
+	-o-transform: rotateZ(0deg);
+	transform: rotateZ(0deg);
+}
+
+
+.gk-grid[data-type="rotate3d"] .gk-grid-element {
+	-webkit-transform: rotateY(45deg);
+	-moz-transform: rotateY(45deg);
+	-ms-transform: rotateY(45deg);
+	-o-transform: rotateY(45deg);
+	transform: rotateY(45deg);
+}
+.gk-grid[data-type="rotate3d"] .gk-grid-element.active {
+	-webkit-transform: rotateY(0deg);
+	-moz-transform: rotateY(0deg);
+	-ms-transform: rotateY(0deg);
+	-o-transform: rotateY(0deg);
+	transform: rotateY(0deg);
+}
+
+
+.gk-grid[data-type="bottom"] .gk-grid-element {
+	margin-top: 20%;
+}
+.gk-grid[data-type="bottom"] .gk-grid-element.active {
+	margin-top: 0%;
+}
+
+
+.gk-grid[data-type="top"] .gk-grid-element {
+	margin-top: -20%;
+}
+.gk-grid[data-type="top"] .gk-grid-element.active {
+	margin-top: 0%;
+}
+
+
+.gk-grid[data-type="left"] .gk-grid-element {
+	margin-left: -20%;
+}
+.gk-grid[data-type="left"] .gk-grid-element.active {
+	margin-left: 0%;
+}
+
+
+.gk-grid[data-type="right"] .gk-grid-element {
+	margin-left: 20%;
+}
+.gk-grid[data-type="right"] .gk-grid-element.active {
+	margin-left: 0%;
+}
+
+
+/* Animation speeds */
+.gk-grid[data-speed="normal"] .gk-grid-element {
+	-webkit-transition-duration: .5s;
+	-moz-transition-duration: .5s;
+	-ms-transition-duration: .5s;
+	-o-transition-duration: .5s;
+	transition-duration: .5s;
+}
+
+.gk-grid[data-speed="fast"] .gk-grid-element {
+	-webkit-transition-duration: .25s;
+	-moz-transition-duration: .25s;
+	-ms-transition-duration: .25s;
+	-o-transition-duration: .25s;
+	transition-duration: .25s;
+}
+
+.gk-grid[data-speed="slow"] .gk-grid-element {
+	-webkit-transition-duration: .75s;
+	-moz-transition-duration: .75s;
+	-ms-transition-duration: .75s;
+	-o-transition-duration: .75s;
+	transition-duration: .75s;
+}
+
+/* Errors */
+.gk-grid-error {
+	color: #555;
+	font-size: 16px;
+	padding: 32px 16px;
+	text-align: center;
+}
+
+.gk-grid-error > strong {
+	color: #d44;
+	display: block;
+	font-family: Verdana, sans-serif;
+	font-size: 100px;
+	font-weight: bold;
+	line-height: 100px;
+}
+
+.gk-grid-error > small {
+	font-size: 11px;
+}
+
+/*
+ * Additional styles for modules inside the GK Grid
+ */
+ 
+/* Coming soon */
