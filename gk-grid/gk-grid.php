@@ -352,8 +352,8 @@ class GK_Grid_Widget extends WP_Widget {
 							// apply params
 							$params = apply_filters( 'dynamic_sidebar_params', $params );
 							// modify params
-							$params[0]['before_widget'] = '<div id="'.$widget.'" class="box '.$wp_registered_widgets[$widget]['classname'].'"><div>';
-							$params[0]['after_widget'] = '</div></div>';
+							$params[0]['before_widget'] = '<div id="'.$widget.'" class="box '.$wp_registered_widgets[$widget]['classname'].'">';
+							$params[0]['after_widget'] = '</div>';
 							$params[0]['before_title'] = '{BLOCK_TITLE}';
 							$params[0]['after_title'] = '{/BLOCK_TITLE}';
 							// get the widget callback function
