@@ -149,11 +149,13 @@ class GK_Grid_Widget extends WP_Widget {
 
 		$instances = get_option('widget_gk_grid');
 
-		foreach($instances as $id => $widget) {
-			if(is_array($widget)) {
-				wp_add_inline_style( 'gk-grid' , GK_Grid_Widget::additional_css($id, $widget) );
-			}
-		}	
+		if(is_array($instances) || is_object($instances)) {
+			foreach($instances as $id => $widget) {
+				if(is_array($widget)) {
+					wp_add_inline_style( 'gk-grid' , GK_Grid_Widget::additional_css($id, $widget) );
+				}
+			}	
+		}
 	}
 
 	function add_admin_js() {
