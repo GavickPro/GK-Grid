@@ -383,7 +383,7 @@ class GK_Grid_Widget extends WP_Widget {
 				}
 				
 				// generate the content
-				for($i = 0; $i < count($widget_code); $i++) {
+				for($i = 0; $i < count($this->config['grid_manager']->blocks); $i++) {
 					echo '<div class="gk-grid-element gk-grid-'. $this->config['grid_manager']->blocks[$i]->ID . (($this->config['animation'] == 'off') ? ' active' : '').'">';
 					echo preg_replace('@{BLOCK_TITLE}(.*?){/BLOCK_TITLE}@mis', '', $widget_code[$i]);
 					echo '</div>';
