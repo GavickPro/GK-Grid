@@ -237,9 +237,9 @@ class GK_Grid_Widget extends WP_Widget {
 		// define the blocks size and position
 		for($i = 0; $i < count($block_data); $i++) {
 			$el = $block_data[$i];
-			$output_desktop .= $prefix . str_replace(array('[', ']'), array('_', ''), $el->ID) . ' { height: '.($el->SIZE_D_H * (100.0 / $mod_height_desktop)).'%; width: '.($el->SIZE_D_W * (100.0 / 6)).'%; left: '.($el->POS_D_X * (100.0 / 6)).'%; top: '.($el->POS_D_Y * (100.0 / $mod_height_desktop)).'%; }' . "\n";
-			$output_tablet .= $prefix . str_replace(array('[', ']'), array('_', ''), $el->ID) . ' { height: '.($el->SIZE_T_H * (100.0 / $mod_height_tablet)).'%; width: '.($el->SIZE_T_W * (100.0 / 4)).'%; left: '.($el->POS_T_X * (100.0 / 4)).'%; top: '.($el->POS_T_Y * (100.0 / $mod_height_tablet)).'%; }' . "\n";
-			$output_mobile .= $prefix . str_replace(array('[', ']'), array('_', ''), $el->ID) . ' { height: '.($el->SIZE_M_H * (100.0 / $mod_height_mobile)).'%; width: '.($el->SIZE_M_W * (100.0 / 2)).'%; left: '.($el->POS_M_X * (100.0 / 2)).'%; top: '.($el->POS_M_Y * (100.0 / $mod_height_mobile)).'%; }' . "\n";
+			$output_desktop .= $prefix . str_replace(array('[', ']', ' '), array('_', '', '-'), $el->ID) . ' { height: '.($el->SIZE_D_H * (100.0 / $mod_height_desktop)).'%; width: '.($el->SIZE_D_W * (100.0 / 6)).'%; left: '.($el->POS_D_X * (100.0 / 6)).'%; top: '.($el->POS_D_Y * (100.0 / $mod_height_desktop)).'%; }' . "\n";
+			$output_tablet .= $prefix . str_replace(array('[', ']', ' '), array('_', '', '-'), $el->ID) . ' { height: '.($el->SIZE_T_H * (100.0 / $mod_height_tablet)).'%; width: '.($el->SIZE_T_W * (100.0 / 4)).'%; left: '.($el->POS_T_X * (100.0 / 4)).'%; top: '.($el->POS_T_Y * (100.0 / $mod_height_tablet)).'%; }' . "\n";
+			$output_mobile .= $prefix . str_replace(array('[', ']', ' '), array('_', '', '-'), $el->ID) . ' { height: '.($el->SIZE_M_H * (100.0 / $mod_height_mobile)).'%; width: '.($el->SIZE_M_W * (100.0 / 2)).'%; left: '.($el->POS_M_X * (100.0 / 2)).'%; top: '.($el->POS_M_Y * (100.0 / $mod_height_mobile)).'%; }' . "\n";
 		}
 		// output the final CSS code
 		return $output_desktop . '@media (max-width: '.$config['tablet_width'].'px) { ' . "\n" . '.gk-grid .gk-img-tablet { display: block; } .gk-grid .gk-img-desktop, .gk-grid .gk-img-mobile { display: none; } ' . "\n" . $output_tablet . '} ' . "\n" . '@media (max-width: '.$config['mobile_width'].'px) { ' . "\n" . '.gk-grid .gk-img-mobile { display: block; } .gk-grid .gk-img-desktop, .gk-grid .gk-img-tablet { display: none; } ' . "\n"  . $output_mobile . '} ';
@@ -384,7 +384,7 @@ class GK_Grid_Widget extends WP_Widget {
 				
 				// generate the content
 				for($i = 0; $i < count($this->config['grid_manager']->blocks); $i++) {
-					echo '<div class="gk-grid-element gk-grid-'. $this->config['grid_manager']->blocks[$i]->ID . (($this->config['animation'] == 'off') ? ' active' : '').'">';
+					echo '<div class="gk-grid-element gk-grid-'. str_replace(array('[', ']', ' '), array('_', '', '-'), $this->config['grid_manager']->blocks[$i]->ID) . (($this->config['animation'] == 'off') ? ' active' : '').'">';
 					echo preg_replace('@{BLOCK_TITLE}(.*?){/BLOCK_TITLE}@mis', '', $widget_code[$i]);
 					echo '</div>';
 				}
