@@ -76,7 +76,6 @@ class GK_Grid_Widget extends WP_Widget {
 								'anim_type'	 			=> 'opacity',
 								'amount_of_sidebars' 	=> '3',
 								'style'					=> 'default-style',
-								'cache'					=> 'none',
 								'cache_time'			=> 60
 							);
 
@@ -277,17 +276,8 @@ class GK_Grid_Widget extends WP_Widget {
 
 		// get the cache content
 		$cache_content = get_transient(md5($this->id));
-		// if the whole widget cache type is enabled and cache content exists - output it
-		if($this->config['cache'] == 'widget' && $cache_content && $cache_time > 0) {
-			echo $cache_content;
-			return;
-		}
 		// prepare a variable for the cached data
 		$cache_output = '';
-		// start cache buffering - whole widget
-		if($this->config['cache'] == 'widget') {
-			ob_start();
-		}
 		// check if the recursive problem doesn't appear
 		$all_sidebars = get_option('sidebars_widgets');
 		$recursive_flag = false;
@@ -320,15 +310,11 @@ class GK_Grid_Widget extends WP_Widget {
 						data-type="'.$this->config['anim_type'].'"
 					>';
 				echo '<div class="gk-grid-wrap" style="margin: '.$this->config['grid_margin'].'">';
-				// store the current output to the cache variable
-				if($this->config['cache'] == 'widget') {
-					$cache_output = ob_get_flush();
-				}
 				// creating the tabs
 				$sidebars = wp_get_sidebars_widgets();
 				$widget_code = array();
 				
-				if($this->config['cache'] == 'content' && $cache_content && $cache_time > 0) {
+				if($cache_content && $cache_time > 0) {
 					$widget_code = $cache_content;
 				} else {
 					foreach($sidebars[$this->config['selected_sidebar']] as $widget) {
@@ -371,17 +357,14 @@ class GK_Grid_Widget extends WP_Widget {
 						}
 					}
 					// store the results
-					if($this->config['cache'] == 'content') {
+					if($cache_time > 0) {
 						$cache_output = $widget_code;
 						$this->config['cache_time'] = ($this->config['cache_time'] == '' || !is_numeric($this->config['cache_time'])) ? 60 : (int) $this->config['cache_time'];
 						set_transient(md5($this->id) , $cache_output, $this->config['cache_time'] * 60);
+					} else {
+						delete_transient(md5($this->id));
 					}
-				}
-
-				if($this->config['cache'] == 'widget') {
-					ob_start();
-				}
-				
+				}				
 				// generate the content
 				for($i = 0; $i < count($this->config['grid_manager']->blocks); $i++) {
 					echo '<div class="gk-grid-element gk-grid-'. str_replace(array('[', ']', ' '), array('_', '', '-'), $this->config['grid_manager']->blocks[$i]->ID) . (($this->config['animation'] == 'off') ? ' active' : '').'">';
@@ -420,13 +403,6 @@ class GK_Grid_Widget extends WP_Widget {
 			echo '<p class="gk-grid-error"><strong>&infin;</strong>'.__('It seems that you want to do something very bad ;)', 'gk-grid') . '<br /><small>' . __('Tip: recursion is very dangerous - please change the source of tabs for this widget.', 'gk-grid').'</small></p>';
 			// 
 			echo $after_widget;
-		}
-		// the final output of the cache
-		if($this->config['cache'] == 'widget') {
-			// get the rest of the output
-			$cache_output .= ob_get_flush();
-			$this->config['cache_time'] = ($this->config['cache_time'] == '' || !is_numeric($this->config['cache_time'])) ? 60 : (int) $this->config['cache_time'];
-			set_transient(md5($this->id) , $cache_output, $this->config['cache_time'] * 60);
 		}
 	}
 
@@ -641,13 +617,8 @@ class GK_Grid_Widget extends WP_Widget {
 					<input class="gk-small" id="<?php echo esc_attr( $this->get_field_id( 'amount_of_sidebars' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'amount_of_sidebars' ) ); ?>" type="number" min="0" max="100" value="<?php echo esc_attr( $this->config['amount_of_sidebars'] ); ?>" />
 				</span>
 				<span>
-					<label for="<?php echo esc_attr( $this->get_field_id( 'cache' ) ); ?>" title="<?php _e('You can enable the widget cache. You can specify the cache time (in minutes) and the content to cache - whole widget or only the generated content', 'gk-grid'); ?>"><?php _e( 'Cache: ', 'gk-grid' ); ?></label>
-					<select id="<?php echo esc_attr( $this->get_field_id('cache')); ?>" name="<?php echo esc_attr( $this->get_field_name('cache')); ?>">
-						<option value="none"<?php selected($this->config['cache'], 'none'); ?>><?php _e('Cache disabled', 'gk-grid'); ?></option>
-						<option value="widget"<?php selected($this->config['cache'], 'widget'); ?>><?php _e('Whole widget', 'gk-grid'); ?></option>
-						<option value="content"<?php selected($this->config['cache'], 'content'); ?>><?php _e('Only tabs content', 'gk-grid'); ?></option>
-					</select>
-					<input class="gk-small" id="<?php echo esc_attr( $this->get_field_id( 'cache_time' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'cache_time' ) ); ?>" type="number" min="0" max="10000" value="<?php echo esc_attr( $this->config['cache_time'] ); ?>" />
+					<label for="<?php echo esc_attr( $this->get_field_id( 'cache_time' ) ); ?>" title="<?php _e('You can enable the widget cache. You can specify the cache time (in minutes)', 'gk-grid'); ?>"><?php _e( 'Cache time: ', 'gk-grid' ); ?></label>
+					<input class="gk-small" id="<?php echo esc_attr( $this->get_field_id( 'cache_time' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'cache_time' ) ); ?>" type="number" min="0" max="10000" value="<?php echo esc_attr( $this->config['cache_time'] ); ?>" /> (min)
 				</span>
 			</p>
 		</div>
