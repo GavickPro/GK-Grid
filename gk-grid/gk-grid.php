@@ -372,9 +372,11 @@ class GK_Grid_Widget extends WP_Widget {
 					echo '</div>';
 				}
 				// generate the necessary images
-				echo '<img class="gk-img-desktop" src="data:image/png;base64,'. $this->generate_blank_image(60, 10 * $this->config['grid_manager']->heights->desktop) .'" alt="" />';
-				echo '<img class="gk-img-tablet" src="data:image/png;base64,'. $this->generate_blank_image(40, 10 * $this->config['grid_manager']->heights->tablet) .'" alt="" />';
-				echo '<img class="gk-img-mobile" src="data:image/png;base64,'. $this->generate_blank_image(20, 10 * $this->config['grid_manager']->heights->mobile) .'" alt="" />';
+				if(isset($this->config['grid_manager']->heights->desktop) && $this->config['grid_manager']->heights->desktop > 0) {
+					echo '<img class="gk-img-desktop" src="data:image/png;base64,'. $this->generate_blank_image(60, 10 * $this->config['grid_manager']->heights->desktop) .'" alt="" />';
+					echo '<img class="gk-img-tablet" src="data:image/png;base64,'. $this->generate_blank_image(40, 10 * $this->config['grid_manager']->heights->tablet) .'" alt="" />';
+					echo '<img class="gk-img-mobile" src="data:image/png;base64,'. $this->generate_blank_image(20, 10 * $this->config['grid_manager']->heights->mobile) .'" alt="" />';
+				}
 				// close the wrappers
 				echo '</div>';
 				echo '</div>';
