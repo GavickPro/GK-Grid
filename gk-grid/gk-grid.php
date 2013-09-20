@@ -232,7 +232,7 @@ class GK_Grid_Widget extends WP_Widget {
 		$mod_height_tablet = $grid_data->heights->tablet;
 		$mod_height_mobile = $grid_data->heights->mobile;
 		// define the blocks border
-		$output_desktop .= '#gk-grid-'.$id.' .gk-grid-element { border: ' . $config['grid_border'] . '; }' . "\n" . '.gk-grid .gk-img-desktop { display: block; } .gk-grid .gk-img-tablet, .gk-grid .gk-img-mobile { display: none; } ' . "\n" ;
+		$output_desktop .= '#gk-grid-gk_grid-'.$id.' .gk-grid-element { border: ' . $config['grid_border'] . '!important; }' . "\n" . '.gk-grid .gk-img-desktop { display: block; } .gk-grid .gk-img-tablet, .gk-grid .gk-img-mobile { display: none; } ' . "\n" ;
 		// define the blocks size and position
 		for($i = 0; $i < count($block_data); $i++) {
 			$el = $block_data[$i];
