@@ -631,7 +631,7 @@ class GK_Grid_Widget extends WP_Widget {
 					el = jQuery(el);
 					var id = el.parent().parent().parent().find('.widget-id').val();
 					
-					if(id !== 'widget_gk_grid-__i__') {
+					if(id.indexOf('gk_grid-__i__') === -1) {
 						var selected = jQuery("div[id$='"+id+"']");
 						if(!selected.hasClass('activated')) {
 							selected.addClass('activated');
