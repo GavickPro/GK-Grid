@@ -138,12 +138,12 @@ class GK_Grid_Widget extends WP_Widget {
 	}
 
 	function add_js() {
-		wp_register_script( 'gk-grid', home_url() . '/wp-content/plugins/gk-grid/gk-grid.js', array('jquery'), false, true);
+		wp_register_script( 'gk-grid', plugins_url('gk-grid.js', __FILE__), array('jquery'), false, true);
 		wp_enqueue_script('gk-grid');
 	}
 
 	function add_css() {
-		wp_register_style( 'gk-grid', home_url() . '/wp-content/plugins/gk-grid/gk-grid.css', array(), false, 'all');
+		wp_register_style( 'gk-grid', plugins_url('gk-grid.css', __FILE__), array(), false, 'all');
 		wp_enqueue_style('gk-grid');
 
 		$instances = get_option('widget_gk_grid');
@@ -158,11 +158,11 @@ class GK_Grid_Widget extends WP_Widget {
 	}
 
 	function add_admin_js() {
-		wp_register_script( 'gk-jquery-spinner', home_url() . '/wp-content/plugins/gk-grid/jquery.spinner.js', array('jquery'), false, 'all');
+		wp_register_script( 'gk-jquery-spinner', plugins_url('jquery.spinner.js', __FILE__), array('jquery'), false, 'all');
 		wp_enqueue_script('gk-jquery-spinner');
-		wp_register_script( 'gk-jquery-sortable', home_url() . '/wp-content/plugins/gk-grid/jquery.sortable.js', array('jquery'), false, 'all');
+		wp_register_script( 'gk-jquery-sortable', plugins_url('jquery.sortable.js', __FILE__), array('jquery'), false, 'all');
 		wp_enqueue_script('gk-jquery-sortable');
-		wp_register_script( 'gk-grid', home_url() . '/wp-content/plugins/gk-grid/gk-grid-admin.js', array('jquery', 'gk-jquery-spinner'), false, 'all');
+		wp_register_script( 'gk-grid', plugins_url('gk-grid-admin.js', __FILE__), array('jquery', 'gk-jquery-spinner'), false, 'all');
 		wp_enqueue_script('gk-grid');
 		$translations_array = array( 
 			'GRID_NO_BLOCKS' => __( 'No blocks', 'gk-grid' ), 
@@ -182,9 +182,9 @@ class GK_Grid_Widget extends WP_Widget {
 	}
 
 	function add_admin_css() {
-		wp_register_style( 'font-awesome', home_url() . '/wp-content/plugins/gk-grid/font-awesome/font-awesome.min.css', array(), false, 'all');
+		wp_register_style( 'font-awesome', plugins_url('font-awesome/font-awesome.min.css', __FILE__), array(), false, 'all');
 		wp_enqueue_style('font-awesome');
-		wp_register_style('gk-grid', home_url() . '/wp-content/plugins/gk-grid/gk-grid-admin.css', array(), false, 'all');
+		wp_register_style('gk-grid', plugins_url('gk-grid-admin.css', __FILE__), array(), false, 'all');
 		wp_enqueue_style('gk-grid');
 	}
 
