@@ -158,11 +158,11 @@ class GK_Grid_Widget extends WP_Widget {
 	}
 
 	function add_admin_js() {
-		wp_register_script( 'gk-jquery-spinner', plugins_url('jquery.spinner.js', __FILE__), array('jquery'), false, 'all');
+		wp_register_script( 'gk-jquery-spinner', plugins_url('jquery.spinner.js', __FILE__), array('jquery'), false, false);
 		wp_enqueue_script('gk-jquery-spinner');
-		wp_register_script( 'gk-jquery-sortable', plugins_url('jquery.sortable.js', __FILE__), array('jquery'), false, 'all');
+		wp_register_script( 'gk-jquery-sortable', plugins_url('jquery.sortable.js', __FILE__), array('jquery'), false, false);
 		wp_enqueue_script('gk-jquery-sortable');
-		wp_register_script( 'gk-grid', plugins_url('gk-grid-admin.js', __FILE__), array('jquery', 'gk-jquery-spinner'), false, 'all');
+		wp_register_script( 'gk-grid', plugins_url('gk-grid-admin.js', __FILE__), array('jquery', 'gk-jquery-spinner'), false, false);
 		wp_enqueue_script('gk-grid');
 		$translations_array = array( 
 			'GRID_NO_BLOCKS' => __( 'No blocks', 'gk-grid' ), 
