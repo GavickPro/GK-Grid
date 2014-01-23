@@ -544,16 +544,14 @@ function GKGridManager() {
 			var inputTypeNumber = document.createElement("input");
 			inputTypeNumber.setAttribute("type", "number");
 			if(!(inputTypeNumber.type === "number")){
-				jQuery(document).ready(function() {
-					wrapper.find('input[type=number]').each(function() {  
-						var $input = jQuery(this);  
-					    $input.spinner({  
-				            min: $input.attr('min'),  
-				            max: $input.attr('max'),  
-				            step: $input.attr('step')  
-					    });  
-					});  
-				});
+				wrap.find('input[type=number]').each(function() {  
+					var $input = jQuery(this);  
+				    $input.spinner({  
+			            min: $input.attr('min'),  
+			            max: $input.attr('max'),  
+			            step: $input.attr('step')  
+				    });  
+				});  
 			}
     		//
     		wrapper = jQuery(wrap);
