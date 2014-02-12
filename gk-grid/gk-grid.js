@@ -52,6 +52,10 @@ jQuery(window).load(function(){
                         gkGridAddClass(jQuery(blocks[randomVector[j]]), 'active', j * (animation_speed / animation_divider));
                     }       
                 }
+                
+                setTimeout(function() {
+                	jQuery(el.find('.gk-grid-wrap')).addClass('active');
+                }, blocks.length * (animation_speed / animation_divider));
             }
         });
     }, 500);
