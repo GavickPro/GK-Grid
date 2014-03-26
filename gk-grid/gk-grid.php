@@ -317,44 +317,48 @@ class GK_Grid_Widget extends WP_Widget {
 				if($cache_content && $cache_time > 0) {
 					$widget_code = $cache_content;
 				} else {
-					foreach($sidebars[$this->config['selected_sidebar']] as $widget) {
-						if(isset($wp_registered_widgets[$widget])) {
-							$selected_sidebar = $wp_registered_sidebars[$this->config['selected_sidebar']];
-							// get the widget params and merge with sidebar data, widget ID and name
-							$params = array_merge(
-								array( 
-									array_merge( 
-										$selected_sidebar, 
-										array(
-											'widget_id' => $widget, 
-											'widget_name' => $wp_registered_widgets[$widget]['name']
+					if(isset($sidebars[$this->config['selected_sidebar']])) {
+						foreach($sidebars[$this->config['selected_sidebar']] as $widget) {
+							if(isset($wp_registered_widgets[$widget])) {
+								$selected_sidebar = $wp_registered_sidebars[$this->config['selected_sidebar']];
+								// get the widget params and merge with sidebar data, widget ID and name
+								$params = array_merge(
+									array( 
+										array_merge( 
+											$selected_sidebar, 
+											array(
+												'widget_id' => $widget, 
+												'widget_name' => $wp_registered_widgets[$widget]['name']
+											) 
 										) 
-									) 
-								),
+									),
+									
+									(array) $wp_registered_widgets[$widget]['params']
+								);
 								
-								(array) $wp_registered_widgets[$widget]['params']
-							);
-							
-							// apply params
-							$params = apply_filters( 'dynamic_sidebar_params', $params );
-							// modify params
-							$params[0]['before_widget'] = '<div id="'.$widget.'" class="box '.$wp_registered_widgets[$widget]['classname'].'">';
-							$params[0]['after_widget'] = '</div>';
-							$params[0]['before_title'] = '{BLOCK_TITLE}';
-							$params[0]['after_title'] = '{/BLOCK_TITLE}';
-							// get the widget callback function
-							$callback = $wp_registered_widgets[$widget]['callback'];
-							// generate
-							ob_start();
-							do_action('dynamic_sidebar', $wp_registered_widgets[$widget]);
-							// use the widget callback function if exists
-							if ( is_callable($callback) ) {
-								call_user_func_array($callback, $params);
+								// apply params
+								$params = apply_filters( 'dynamic_sidebar_params', $params );
+								// modify params
+								$params[0]['before_widget'] = '<div id="'.$widget.'" class="box '.$wp_registered_widgets[$widget]['classname'].'">';
+								$params[0]['after_widget'] = '</div>';
+								$params[0]['before_title'] = '{BLOCK_TITLE}';
+								$params[0]['after_title'] = '{/BLOCK_TITLE}';
+								// get the widget callback function
+								$callback = $wp_registered_widgets[$widget]['callback'];
+								// generate
+								ob_start();
+								do_action('dynamic_sidebar', $wp_registered_widgets[$widget]);
+								// use the widget callback function if exists
+								if ( is_callable($callback) ) {
+									call_user_func_array($callback, $params);
+								}
+								// get the widget code
+								array_push($widget_code, ob_get_contents());
+								ob_end_clean();
 							}
-							// get the widget code
-							array_push($widget_code, ob_get_contents());
-							ob_end_clean();
 						}
+					} else {
+						echo 'Selected sidebar is blank';
 					}
 					// store the results
 					if($cache_time > 0) {
