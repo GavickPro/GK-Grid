@@ -468,3 +468,21 @@ body.dragging * {
 .ui-spinner-down {
 	bottom: -3px;
 }
+
+/* WP Customizer */
+.wp-customizer .gk-grid-ui select {
+	min-width: inherit;
+}
+.wp-customizer .gk-grid-ui input[type=text] {
+	width: 50px;
+}
+.wp-customizer .gk-grid-ui input[type=text].gk-title, 
+.wp-customizer .gk-grid-ui input[type=text].gk-wide {
+	width: 150px;
+}
+.wp-customizer .gk-grid-ui input[type=text].gk-inline-wide {
+	width: 120px;
+}
+.wp-customizer .gk-cols2 > span {
+	line-height: 2;
+}
