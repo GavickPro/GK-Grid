@@ -227,19 +227,21 @@ class GK_Grid_Widget extends WP_Widget {
 		$output_tablet = '';
 		$output_mobile = '';
 		// get the grid settings
-		$block_data = $grid_data->blocks;
-		$mod_height_desktop = $grid_data->heights->desktop;
-		$mod_height_tablet = $grid_data->heights->tablet;
-		$mod_height_mobile = $grid_data->heights->mobile;
-		// define the blocks border
-		$output_desktop .= '#gk-grid-gk_grid-'.$id.' .gk-grid-element { border: ' . $config['grid_border'] . '!important; }' . "\n" . '.gk-grid .gk-img-desktop { display: block; } .gk-grid .gk-img-tablet, .gk-grid .gk-img-mobile { display: none; } ' . "\n" ;
-		// define the blocks size and position
-		for($i = 0; $i < count($block_data); $i++) {
-			$el = $block_data[$i];
-			$output_desktop .= $prefix . str_replace(array('[', ']', ' '), array('_', '', '-'), $el->ID) . ' { height: '.($el->SIZE_D_H * (100.0 / $mod_height_desktop)).'%; width: '.($el->SIZE_D_W * (100.0 / 6)).'%; left: '.($el->POS_D_X * (100.0 / 6)).'%; top: '.($el->POS_D_Y * (100.0 / $mod_height_desktop)).'%; }' . "\n";
-			$output_tablet .= $prefix . str_replace(array('[', ']', ' '), array('_', '', '-'), $el->ID) . ' { height: '.($el->SIZE_T_H * (100.0 / $mod_height_tablet)).'%; width: '.($el->SIZE_T_W * (100.0 / 4)).'%; left: '.($el->POS_T_X * (100.0 / 4)).'%; top: '.($el->POS_T_Y * (100.0 / $mod_height_tablet)).'%; }' . "\n";
-			$output_mobile .= $prefix . str_replace(array('[', ']', ' '), array('_', '', '-'), $el->ID) . ' { height: '.($el->SIZE_M_H * (100.0 / $mod_height_mobile)).'%; width: '.($el->SIZE_M_W * (100.0 / 2)).'%; left: '.($el->POS_M_X * (100.0 / 2)).'%; top: '.($el->POS_M_Y * (100.0 / $mod_height_mobile)).'%; }' . "\n";
-		}
+		if (isset($grid_data->blocks)) {
+			$block_data = $grid_data->blocks;
+			$mod_height_desktop = $grid_data->heights->desktop;
+			$mod_height_tablet = $grid_data->heights->tablet;
+			$mod_height_mobile = $grid_data->heights->mobile;
+			// define the blocks border
+			$output_desktop .= '#gk-grid-gk_grid-'.$id.' .gk-grid-element { border: ' . $config['grid_border'] . '!important; }' . "\n" . '.gk-grid .gk-img-desktop { display: block; } .gk-grid .gk-img-tablet, .gk-grid .gk-img-mobile { display: none; } ' . "\n" ;
+			// define the blocks size and position
+			for($i = 0; $i < count($block_data); $i++) {
+				$el = $block_data[$i];
+				$output_desktop .= $prefix . str_replace(array('[', ']', ' '), array('_', '', '-'), $el->ID) . ' { height: '.($el->SIZE_D_H * (100.0 / $mod_height_desktop)).'%; width: '.($el->SIZE_D_W * (100.0 / 6)).'%; left: '.($el->POS_D_X * (100.0 / 6)).'%; top: '.($el->POS_D_Y * (100.0 / $mod_height_desktop)).'%; }' . "\n";
+				$output_tablet .= $prefix . str_replace(array('[', ']', ' '), array('_', '', '-'), $el->ID) . ' { height: '.($el->SIZE_T_H * (100.0 / $mod_height_tablet)).'%; width: '.($el->SIZE_T_W * (100.0 / 4)).'%; left: '.($el->POS_T_X * (100.0 / 4)).'%; top: '.($el->POS_T_Y * (100.0 / $mod_height_tablet)).'%; }' . "\n";
+				$output_mobile .= $prefix . str_replace(array('[', ']', ' '), array('_', '', '-'), $el->ID) . ' { height: '.($el->SIZE_M_H * (100.0 / $mod_height_mobile)).'%; width: '.($el->SIZE_M_W * (100.0 / 2)).'%; left: '.($el->POS_M_X * (100.0 / 2)).'%; top: '.($el->POS_M_Y * (100.0 / $mod_height_mobile)).'%; }' . "\n";
+			}
+		}	
 		// output the final CSS code
 		return $output_desktop . '@media (max-width: '.$config['tablet_width'].'px) { ' . "\n" . '.gk-grid .gk-img-tablet { display: block; } .gk-grid .gk-img-desktop, .gk-grid .gk-img-mobile { display: none; } ' . "\n" . $output_tablet . '} ' . "\n" . '@media (max-width: '.$config['mobile_width'].'px) { ' . "\n" . '.gk-grid .gk-img-mobile { display: block; } .gk-grid .gk-img-desktop, .gk-grid .gk-img-tablet { display: none; } ' . "\n"  . $output_mobile . '} ';
 	}
@@ -314,6 +316,7 @@ class GK_Grid_Widget extends WP_Widget {
 				$sidebars = wp_get_sidebars_widgets();
 				$widget_code = array();
 				
+				$cache_time =  $this->config['cache_time'];
 				if($cache_content && $cache_time > 0) {
 					$widget_code = $cache_content;
 				} else {
