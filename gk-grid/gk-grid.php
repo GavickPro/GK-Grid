@@ -87,18 +87,17 @@ class GK_Grid_Widget extends WP_Widget {
 	 *
 	 **/
 	function __construct() {
-		$this->WP_Widget(
-			'gk_grid', 
-			__( 'GK Grid', 'gk-grid' ), 
-			array( 
+		$widget_ops = array(
 				'classname' => 'widget_gk_grid', 
 				'description' => __( 'Use this widget to show tabs created form the selected sidebar', 'gk-grid') 
-			),
-			array(
+			);
+		
+		$control_ops = array(
 				'width' => 480, 
 				'height' => 350
-			)
-		);
+			);
+
+		parent::__construct('gk_grid', __( 'GK Grid', 'gk-grid' ), $widget_ops, $control_ops );
 		
 		$this->alt_option_name = 'gk_grid';
 		//
