@@ -9,6 +9,9 @@ Author: GavickPro
 Author URI: http://www.gavick.com/
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+GitHub Plugin URI: pingram3541/GK-Grid
+
 */
 
 /*
